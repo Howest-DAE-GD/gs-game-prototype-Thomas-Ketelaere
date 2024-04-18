@@ -30,4 +30,22 @@ private:
 	void Initialize();
 	void Cleanup( );
 	void ClearBackground( ) const;
+
+	//VARIABLES
+	Rectf m_BlueRectBottom{ 200,20, 50, 20 };
+	Rectf m_BlueRectTop{ 200, 40, 20, 10 };
+
+	Rectf m_RedRectBottom{ 420, 20, 30, 20 };
+	Rectf m_RedRectTop{ 400, 30, 50, 10 };
+
+	float m_RadiusSmall{500};
+	float m_RadiusBig{ 600 };
+
+	const float m_Speed{ 200 };
+	const float m_CrimpSpeed{30};
+	bool m_collision{};
+	bool m_Won{};
+	bool m_Message{};
+
+
 };
