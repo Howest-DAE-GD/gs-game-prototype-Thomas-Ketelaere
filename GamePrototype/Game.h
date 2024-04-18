@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseGame.h"
+#include "utils.h"
+using namespace utils;
+
 class Game : public BaseGame
 {
 public:

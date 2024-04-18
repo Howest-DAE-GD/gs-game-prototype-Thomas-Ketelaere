@@ -38,6 +38,7 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
+	FillRect(20, 20, 200, 200);
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
