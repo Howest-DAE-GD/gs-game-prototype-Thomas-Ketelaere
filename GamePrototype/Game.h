@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseGame.h"
 #include "utils.h"
+#include "Texture.h"
+
 using namespace utils;
 
 class Game : public BaseGame
@@ -31,20 +33,36 @@ private:
 	void Cleanup( );
 	void ClearBackground( ) const;
 
+	void Reset();
+
+	bool Counter(float ElapsedSec, float Delay);
+	
+
+
+	//POINTERS
+	Texture* m_TextureWon;
+	Texture* m_TextureLost;
+
 	//VARIABLES
-	Rectf m_BlueRectBottom{ 200,20, 50, 20 };
-	Rectf m_BlueRectTop{ 200, 40, 20, 10 };
+	Rectf m_BlueRectBottom{ 100, 400, 50, 20 };
+	Rectf m_BlueRectTop{ 100, 420, 20, 10 };
 
-	Rectf m_RedRectBottom{ 420, 20, 30, 20 };
-	Rectf m_RedRectTop{ 400, 30, 50, 10 };
+	Rectf m_RedRectBottom{ 720, 20, 30, 20 };
+	Rectf m_RedRectTop{ 700, 30, 50, 10 };
 
-	float m_RadiusSmall{500};
-	float m_RadiusBig{ 600 };
+	std::vector<Rectf> m_MazeVector;
+
+	float m_RadiusSmall{ 500 };
+	float m_RadiusBig{ 700 };
+	float m_RadiusWon{};
 
 	const float m_Speed{ 200 };
-	const float m_CrimpSpeed{30};
-	bool m_collision{};
+	const float m_CrimpSpeed{40};
+	float m_AccumulatedTime{};
+	int m_Level{1};
+	int m_MaxLevel{2};
 	bool m_Won{};
+	bool m_GameDone{};
 	bool m_Message{};
 
 
