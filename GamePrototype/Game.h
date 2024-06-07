@@ -34,6 +34,7 @@ private:
 	void ClearBackground( ) const;
 
 	void Reset();
+	void UpdateLevelTexture();
 
 	bool Counter(float ElapsedSec, float Delay);
 	
@@ -42,6 +43,7 @@ private:
 	//POINTERS
 	Texture* m_TextureWon;
 	Texture* m_TextureLost;
+	Texture* m_pLevel;
 
 	//VARIABLES
 	Rectf m_BlueRectBottom{ 100, 400, 50, 20 };
@@ -60,7 +62,7 @@ private:
 	const float m_CrimpSpeed{40};
 	float m_AccumulatedTime{};
 	int m_Level{1};
-	int m_MaxLevel{2};
+	int m_MaxLevel{4};
 	bool m_Won{};
 	bool m_GameDone{};
 	bool m_Message{};

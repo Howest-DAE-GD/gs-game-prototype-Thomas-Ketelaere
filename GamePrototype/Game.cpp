@@ -18,12 +18,18 @@ void Game::Initialize( )
 {
 	m_TextureLost = new Texture("You Lost", "font/DIN-Light.otf", 30, Color4f{ 1.f, 0.f, 0.f, 1.f });
 	m_TextureWon = new Texture("You Won", "font/DIN-Light.otf", 30, Color4f{ 0.f, 0.f, 1.f, 1.f });
+	std::string Level{ "Level: " + std::to_string(m_Level) };
+	m_pLevel = new Texture(Level, "font/DIN-Light.otf", 30, Color4f{ 1.f, 0.f, 1.f, 1.f });
 
 
 	m_MazeVector.push_back(Rectf{ 200, 200, 5, 300 });
 	m_MazeVector.push_back(Rectf{ 600, 0, 5, 300 });
 	m_MazeVector.push_back(Rectf{ 300, 0, 5, 300 });
 	m_MazeVector.push_back(Rectf{ 500, 200, 5, 300 });
+	m_MazeVector.push_back(Rectf{ 300, 300, 100, 5 });
+	m_MazeVector.push_back(Rectf{ 400, 200, 100, 5 });
+	m_MazeVector.push_back(Rectf{ 100, 200, 100, 5 });
+	m_MazeVector.push_back(Rectf{ 600, 300, 100, 5 });
 }
 
 void Game::Cleanup( )
@@ -32,11 +38,13 @@ void Game::Cleanup( )
 	m_TextureLost = nullptr;
 	delete m_TextureWon;
 	m_TextureWon = nullptr;
+	delete m_pLevel;
+	m_pLevel = nullptr;
 }
 
 void Game::Update( float elapsedSec )
 {
-
+	std::cout << m_Level * 2 - 1 << std::endl;
 	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 
 	if (m_Won && m_GameDone)
@@ -57,6 +65,7 @@ void Game::Update( float elapsedSec )
 				std::cout << "level plus: " << m_Level << std::endl;
 			}
 			Reset();
+			UpdateLevelTexture();
 		}
 	}
 
@@ -81,6 +90,7 @@ void Game::Update( float elapsedSec )
 		{
 			m_Level = 1;
 			Reset();
+			UpdateLevelTexture();
 		}
 	}
 
@@ -240,15 +250,11 @@ void Game::Update( float elapsedSec )
 	
 }
 
-
-
 void Game::Draw( ) const
 {
 	ClearBackground( );
 
-
-
-	SetColor(Color4f{ 0.f, 1.f, 0.f, 1.f });
+	SetColor(Color4f{ 1.f, 0.6f, 0.f, 1.f });
 	FillEllipse(Point2f{ GetViewPort().width / 2, GetViewPort().height / 2 }, m_RadiusBig, m_RadiusBig);
 
 	SetColor(Color4f{ 0.f, 0.f, 0.f, 1.f });
@@ -282,7 +288,7 @@ void Game::Draw( ) const
 		m_TextureLost->Draw(Point2f{ GetViewPort().width / 2 - m_TextureLost->GetWidth() / 2, 400.f }, Rectf{ 0.f, 0.f, m_TextureLost->GetWidth(), 30 });
 	}
 
-
+	m_pLevel->Draw(Point2f{ GetViewPort().width / 2 - m_pLevel->GetWidth() / 2, 450.f }, Rectf{ 0.f, 0.f, m_pLevel->GetWidth(), 30 });
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -376,6 +382,15 @@ void Game::Reset()
 	m_Message = false;
 
 	std::cout << "reset " << std::endl;
+}
+
+void Game::UpdateLevelTexture()
+{
+	delete m_pLevel;
+	m_pLevel = nullptr;
+
+	std::string Level{ "Level: " + std::to_string(m_Level) };
+	m_pLevel = new Texture(Level, "font/DIN-Light.otf", 30, Color4f{ 1.f, 0.f, 1.f, 1.f });
 }
 
 bool Game::Counter(float ElapsedSec, float Delay)
